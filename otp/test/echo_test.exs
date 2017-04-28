@@ -23,4 +23,10 @@ defmodule OTP.EchoTest do
       Process.sleep(51)
       refute Process.alive?(pid)
     end
+
+    test "sync echo" do
+      {:ok, pid} = Echo.start_link()
+
+      assert :hello == Echo.sync_send(pid, :hello)
+    end
 end
