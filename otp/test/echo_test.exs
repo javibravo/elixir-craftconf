@@ -1,6 +1,9 @@
 defmodule OTP.EchoTest do
     use ExUnit.Case, async: true
 
+    # alias OTP.Echo, as :WhateverYouWant
+    alias OTP.Echo
+
     test "echo" do
       {:ok, pid} = Echo.start_link()
 
