@@ -1,4 +1,5 @@
 defmodule OTP.Echo do
+  @receive_timeout 50
 
   def start_link do
                    # module, function, agument
@@ -17,6 +18,9 @@ defmodule OTP.Echo do
         loop()
       _msg -> # _ (underscore), I am going to catch it but not use it
         loop()
+    after
+      @receive_timeout ->
+        exit(:normal)
     end
   end
 

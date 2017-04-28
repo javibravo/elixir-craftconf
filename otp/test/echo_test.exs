@@ -16,4 +16,11 @@ defmodule OTP.EchoTest do
       send(pid, :another_message) # Kernel.send
       assert Process.alive?(pid)
     end
+
+    test "time out after 50 ms" do
+      {:ok, pid} = Echo.start_link()
+
+      Process.sleep(51)
+      refute Process.alive?(pid)
+    end
 end
