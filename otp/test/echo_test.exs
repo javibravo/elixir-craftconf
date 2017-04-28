@@ -26,7 +26,12 @@ defmodule OTP.EchoTest do
 
     test "sync echo" do
       {:ok, pid} = Echo.start_link()
-
       assert :hello == Echo.sync_send(pid, :hello)
+    end
+
+    test "sync send timeout" do
+      {:ok, pid} = Echo.start_link()
+
+      assert {:error, :timeout} = Echo.sync_send(pid, :no_reply)
     end
 end

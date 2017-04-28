@@ -1,5 +1,6 @@
 defmodule OTP.Echo do
   @receive_timeout 50
+  @send_timeout 10
 
   def start_link do
                    # module, function, agument
@@ -11,6 +12,9 @@ defmodule OTP.Echo do
     async_send(pid, msg)
     receive do
       msg -> msg
+    after
+      @send_timeout ->
+        {:error, :timeout}
     end
   end
 
@@ -20,6 +24,8 @@ defmodule OTP.Echo do
 
   def loop do
     receive do
+      {:no_reply, _caller} ->
+        loop()
       {msg, caller} ->
         Kernel.send(caller, msg)
         loop()
