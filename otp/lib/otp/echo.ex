@@ -15,6 +15,8 @@ defmodule OTP.Echo do
       {msg, caller} ->
         Kernel.send(caller, msg)
         loop()
+      _msg -> # _ (underscore), I am going to catch it but not use it
+        loop()
     end
   end
 

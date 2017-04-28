@@ -12,5 +12,8 @@ defmodule OTP.EchoTest do
 
       Echo.send(pid, :hello)
       assert_receive :hello
+
+      send(pid, :another_message) # Kernel.send
+      assert Process.alive?(pid)
     end
 end
